@@ -7,19 +7,29 @@
 //
 
 #import "AppDelegate.h"
-
+#import "CamaraViewController.h"
+#import "DataManager.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize cav = _cav;
+@synthesize dataManager = _dataManager;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.cav = [[CamaraViewController alloc]init];
+    self.dataManager = [[DataManager alloc]init];
+    self.dataManager.del = (id)_cav;
+    [self.dataManager fetchAssetsFromLibrary];
+    //[self.dataManager test];
+    self.window.rootViewController = self.cav;
+    //[self.window addSubview:_cav.view];
     [self.window makeKeyAndVisible];
     return YES;
 }
